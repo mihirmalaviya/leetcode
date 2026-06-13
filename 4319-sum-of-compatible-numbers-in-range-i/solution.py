@@ -1,23 +1,17 @@
-class Solution(object):
-    def sumOfGoodIntegers(self, n, k):
-        """
-        :type n: int
-        :type k: int
-        :rtype: int
-        """
-        res = 0
-        for x in range(max(0,-k+n), k+n+1):
-            if not x&n:
+class Solution:
+    def sumOfGoodIntegers(self, n: int, k: int) -> int:
+        
+        res=0
+        for x in range(max(0,-k+n),k+n+1):
+            if n&x==0:
                 res+=x
         return res
 
 '''
-x must be positive
-
+x
 n-x = k
-x = -k+n
-
 n-x = -k
-x = k+n
 
+x = max(0,-k+n)
+x = k+n
 '''
