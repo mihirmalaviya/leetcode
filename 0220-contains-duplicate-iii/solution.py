@@ -1,39 +1,41 @@
 class Solution:
     def containsNearbyAlmostDuplicate(self, nums: List[int], indexDiff: int, valueDiff: int) -> bool:
-        
 
         buckets={}
+        
         l=0
         for r in range(len(nums)):
-            num=nums[r]
-
-            if r>indexDiff:
+            if r>indexDiff: 
                 i=nums[l]//(valueDiff+1)
                 del buckets[i]
                 l+=1
-
-            i=num//(valueDiff+1)
-            # print(buckets,i)
-            if i in buckets: # its close enough
+            
+            i=nums[r]//(valueDiff+1)
+            if i in buckets:
                 return True
-            elif i+1 in buckets and abs(buckets[i+1]-num)<=valueDiff or i-1 in buckets and abs(buckets[i-1]-num)<=valueDiff:
+            elif i+1 in buckets and abs(buckets[i+1]-nums[r])<=valueDiff:
+                return True
+            elif i-1 in buckets and abs(buckets[i-1]-nums[r])<=valueDiff:
                 return True
             else:
-                buckets[i]=num
+                buckets[i]=nums[r]
+
         return False
+            
+
+
+        
 
 
 '''
 
 sliding window
 
-when r goes up we add it to a bucket based on it // valuedif
+we can have buckets of size valueDiff+1
 
-when l goes up we remove it from the bucket (popleft)
+at any point each bucket must only have at max one thing, because if it has more than one then that means ajdkaljsdkah
 
-then we either have the 2 things in one bucket or in 2 adj buckets
-
-since we did it in order both are sorted and we can do a 2 pointer thingy to figure out if they have close index to eachotehr? maybe by making them into 1 sorted array and checking like that
+each time adding to a bucket manually check the next to it buckets
 
 '''
 
