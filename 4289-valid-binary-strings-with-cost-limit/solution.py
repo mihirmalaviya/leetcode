@@ -1,25 +1,21 @@
-class Solution(object):
-    def generateValidStrings(self, n, k):
-        """
-        :type n: int
-        :type k: int
-        :rtype: List[str]
-        """
+class Solution:
+    def generateValidStrings(self, n: int, k: int) -> list[str]:
+
+        res=[]
+        q=deque([('',0)])
+
+        while q:
+            for _ in range(len(q)):
+                s,c=q.popleft()
+                if len(s)==n:
+                    res.append(s)
+                    continue
+                q.append((s+"0",c))
+                c+=len(s)
+                if c<=k and (not s or s[-1]!="1"):
+                    q.append((s+"1",c))
+
+        return res
+
         
 
-        res = []
-        s = deque([('',0)])
-        for i in range(n):
-            m=len(s)
-            for _ in range(m):
-                t,c = s.popleft()
-                
-                s.append((t+'0',c))
-
-                c+=i
-                if (not t or t[-1] != '1') and c <= k:
-                    s.append((t+'1',c))
-        
-        return [s for s,c in s]
-        
-        
