@@ -1,24 +1,24 @@
-class Solution:
-    def trap(self, height: List[int]) -> int:
-        res=0
-        lm,rm=0,0
-        l,r=0,len(height)-1
-        while l<r:
-            lh,rh = height[l],height[r]
-            lm,rm=max(lh,lm),max(rh,rm)
-            mh=min(lm,rm)
+class Solution(object):
+    def trap(self, height):
+        """
+        :type height: List[int]
+        :rtype: int
+        """
         
-            if lh<rh:
-                l+=1
-                h=height[l]
-            else:
-                r-=1
-                h=height[r]
+        res=0
+        l=0
+        r=len(height)-1
+        maxl=height[l]
+        maxr=height[r]
 
-            if mh>h:
-                res+=mh-h
-            
-            # print(mh,h)
+        while l<r:
+            if height[l]<height[r]:
+                res+=max(0,min(maxl,maxr)-height[l])
+                l+=1
+                maxl=max(maxl,height[l])
+            else:
+                res+=max(0,min(maxl,maxr)-height[r])
+                r-=1
+                maxr=max(maxr,height[r])
 
         return res
- 
