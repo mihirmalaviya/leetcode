@@ -7,21 +7,16 @@ class Solution(object):
         """
         
         people.sort()
-
-        boats = 0
-        l,r = 0,len(people)-1
-
+        people.reverse()
+        l=0
+        r=len(people)-1
+        res=0
         while l<=r:
-            total = people[l]+people[r]
-            if total>limit:
+            cap=limit
+            cap-=people[l]
+            l+=1
+            if people[r]<=cap:
                 r-=1
-            else:
-                r-=1
-                l+=1
-            boats += 1
-        
-        return boats
-
-
-
+            res+=1
+        return res
 
