@@ -1,27 +1,13 @@
-class Solution(object):
-    def coinChange(self, coins, amount):
-        """
-        :type coins: List[int]
-        :type amount: int
-        :rtype: int
-        """
+class Solution:
+    def coinChange(self, coins: List[int], amount: int) -> int:
+        
 
-        memo={}
-        def find_lowest(i,a,memo=memo):
-            if i>=len(coins) or a<=0:
-                if a==0:
-                    return 0
-                else:
-                    return float('inf')
-            
-            if (i,a) in memo:
-                return memo[(i,a)]
+        dp = [float('inf')]*(amount+1)
 
-            w=1+find_lowest(i,a-coins[i])
-            wo=find_lowest(i+1,a)
-            memo[(i,a)]=min(w,wo)
-            return memo[(i,a)]
-            
-        res=find_lowest(0,amount)
-        return res if res!=float('inf') else -1
-
+        dp[0]=0
+        for coin in coins:
+            for j in range(coin,amount+1):
+                dp[j]=min(dp[j],dp[j-coin]+1)
+        
+        if dp[-1] == float('inf'): dp[-1]=-1
+        return dp[-1]
