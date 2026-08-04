@@ -1,23 +1,23 @@
 class Solution:
     def isValid(self, s: str) -> bool:
-
-        closing={
-            ")":"(",
-            "]":"[",
-            "}":"{"
-        }
         
-        stack=[]
-        for ch in s:
-            if not ch in closing:
-                stack.append(ch)
-            else:
-                if not stack: 
-                    return False
-                if closing[ch] != stack[-1]:
-                    return False
-                else:
-                    stack.pop()
 
-        return not bool(stack)
-                
+        stk=[]
+        m={
+            '}':'{',
+            ')':'(',
+            ']':'['
+        }
+        for ch in s:
+            if ch in m:
+                if not stk:
+                    return False
+                    
+                if m[ch]==stk[-1]:
+                    stk.pop()
+                else:
+                    return False
+            else:
+                stk.append(ch)
+
+        return len(stk)==0
