@@ -1,9 +1,5 @@
 class Solution(object):
     def calPoints(self, operations):
-        """
-        :type operations: List[str]
-        :rtype: int
-        """
         
         s=[]
         for o in operations:
