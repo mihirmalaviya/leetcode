@@ -7,23 +7,20 @@ class Solution(object):
         """
         
         res=[]
+        curr=[]
 
-        def dfs(curr,i,target):
-            if target<0:
-                return
-            if target==0:
-                res.append(curr[:])
-                return
+        def b(i,x):
             if i==len(candidates):
+                if x==0:
+                    res.append(curr[:])
                 return
-
-            curr.append(candidates[i])
-            dfs(curr,i,target-candidates[i])
-
-            curr.pop()
-            dfs(curr,i+1,target)
+            
+            if candidates[i]<=x:
+                curr.append(candidates[i])
+                b(i,x-candidates[i])
+                curr.pop()
+            b(i+1,x)
         
-        dfs([],0,target)
+        b(0,target)
         return res
-
 
