@@ -4,26 +4,25 @@ class Solution:
         candidates.sort()
 
         res=[]
-        def dfs(curr, i, target):
-            if target<0:
-                return
-            if target==0:
-                res.append(curr[:])
-                return
+        curr=[]
+
+        def b(i,x):
             if i==len(candidates):
+                if x==0:
+                    res.append(curr[:])
                 return
             
+            if candidates[i]<=x:
+                curr.append(candidates[i])
+                b(i+1,x-candidates[i])
+                curr.pop()
             
-            curr.append(candidates[i])
-            dfs(curr,i+1,target-candidates[i])
-
-            x=curr.pop()
-            while i<len(candidates) and candidates[i]==x:
+            while i+1<len(candidates) and candidates[i]==candidates[i+1]:
                 i+=1
-
-            dfs(curr,i,target)
+                
+            b(i+1,x)
         
-        dfs([],0,target)
-
+        b(0,target)
         return res
+
 
