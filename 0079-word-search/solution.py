@@ -4,13 +4,12 @@ class Solution:
             if i==len(word):
                 return True
             if r<0 or r>=len(board) or c<0 or c>=len(board[0]) or board[r][c]!=word[i]:
-                return False 
-            t=board[r][c]
+                return False
+            
             board[r][c]='.'
+            res=dfs(r-1,c,i+1) or dfs(r+1,c,i+1) or dfs(r,c-1,i+1) or dfs(r,c+1,i+1)
+            board[r][c]=word[i]
 
-            res=dfs(r+1,c,i+1) or dfs(r-1,c,i+1) or dfs(r,c+1,i+1) or dfs(r,c-1,i+1)
-
-            board[r][c]=t
             return res
 
         for i in range(len(board)):
