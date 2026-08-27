@@ -2,17 +2,16 @@ class Solution:
     def permute(self, nums: List[int]) -> List[List[int]]:
 
         res=[]
-        def dfs(curr, nums):
-            if len(curr)==len(nums):
-                res.append(curr[:])
-                return
-            
-            for i in range(len(nums)):
-                if nums[i] in curr: continue
-                curr.append(nums[i])
-                dfs(curr,nums)
-                curr.pop()
-        
 
-        dfs([],nums)
+        def b(s):
+            if s==len(nums):
+                res.append(nums[:])
+
+            for i in range(s,len(nums)):
+                nums[s],nums[i]=nums[i],nums[s]
+                b(s+1)
+                nums[s],nums[i]=nums[i],nums[s]
+        
+        b(0)
         return res
+
