@@ -1,19 +1,13 @@
 class Solution:
     def jump(self, nums: List[int]) -> int:
+
+        for i in range(1,len(nums)):
+            nums[i]=max(i+nums[i],nums[i-1])
         
+        res=0
+        i=0
+        while i<len(nums)-1:
+            i=nums[i]
+            res+=1
 
-        @cache
-        def dp(i):
-            if i>=len(nums)-1:
-                return 0
-            
-            res=float('inf')
-            for j in range(nums[i]):
-                res=min(res,1+dp(i+j+1))
-
-            return res
-        
-        return dp(0)
-
-
-
+        return res
