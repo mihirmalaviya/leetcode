@@ -1,30 +1,20 @@
 class Solution:
     def shipWithinDays(self, weights: List[int], days: int) -> int:
-        
+
         l=max(weights)
         r=sum(weights)
-
-        def works(c):
-
-            d=0
-            curr=c
+        
+        def can(cap):
+            i=1
+            c=0
             for w in weights:
-                if curr>=w:
-                    curr-=w
-                else:
-                    d+=1
-                    curr=c-w
+                c+=w
+                if c>cap:
+                    c=w
+                    i+=1
+            print(cap,i)
+            return i<=days
 
-            return d+1
-            
-        res=-1
-        while l<=r:
-            m=l+(r-l)//2
-            d=works(m)
-            if d<=days:
-                r=m-1
-                res=m
-            else:
-                l=m+1
-        return res
+        return l+bisect_left(range(l,r), True, key=can)
+
 
