@@ -1,28 +1,8 @@
-class Solution(object):
-    def minEatingSpeed(self, piles, h):
-        """
-        :type piles: List[int]
-        :type h: int
-        :rtype: int
-        """
-        def ok(k):
-            if k==0: return False
-            total=0
-            for b in piles:
-                total+=b//k
-                if b%k:
-                    total+=1
-            return total<=h
-
-        l,r=1,max(piles)
-        res=0
-
-        while l<=r:
-            m=l+(r-l)//2
-            if ok(m):
-                res=m
-                r=m-1
-            else:
-                l=m+1
-
-        return res
+class Solution:
+    def minEatingSpeed(self, piles: List[int], h: int) -> int:
+        l=max(sum(piles)//h,1)
+        r=max(piles)
+        def check(k):
+            return sum(math.ceil(x/k) for x in piles)<=h
+        return l+bisect.bisect_left(range(l,r), True, key=check)
+ 
