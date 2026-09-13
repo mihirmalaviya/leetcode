@@ -1,30 +1,32 @@
 class Solution:
     def canFinish(self, numCourses: int, prereqs: List[List[int]]) -> bool:
         
-        pre={i:[] for i in range(numCourses)}
+        ind=[0 for i in range(numCourses)]
+        post=[[] for i in range(numCourses)]
         
         for c,p in prereqs:
-            pre[c].append(p)
+            ind[c]+=1
+            post[p].append(c)
         
-        visited=set()
-        def dfs(c):
-            if c in visited:
-                return False
-            if not pre[c]:
-                return True
 
-            visited.add(c)
-            for p in pre[c]:
-                if dfs(p)==False:
-                    return False
-            visited.remove(c)
-            pre[c]=[]
-            return True
+        s = [i for i in range(numCourses) if ind[i] == 0]
+        visited = len(s)
+
+        print(s)
+       
+        while s:
+            i=s.pop()
+            for p in post[i]:
+                ind[p]-=1
+                if ind[p]==0:
+                    s.append(p)
+                    visited+=1
         
-        for c,p in prereqs:
-            if not dfs(c):
-                return False
-        return True
+        return visited==numCourses
+
+            
+
+
 
 
 
